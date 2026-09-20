@@ -1,0 +1,41 @@
+name: lammps-grace-example
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.12.9
+  # LAMMPS build with the GRACE pair style (gracemaker.readthedocs.io), MPI-enabled
+  # so the same environment serves both the lammpsparser (subprocess) and the
+  # pylammpsmpi (mpi4py-library) notebooks.
+  - lammps=2025.07.22=cpu_py312_hdb376b3_mpi_openmpi_5
+  - ase=3.29.0
+  - numpy=2.5.3
+  - scipy=1.18.0
+  - pandas=2.3.3
+  - matplotlib=3.9.4
+  - lammpsparser=0.0.9
+  - pylammpsmpi=0.5.1
+  - mpi4py=4.1.2
+  - executorlib=1.10.3
+  # GRACE foundation-model runtime (CPU-only TensorFlow, no CUDA extras)
+  - tensorflow-cpu=2.19.1
+  - tf-keras=2.19.0
+  - scikit-learn=1.9.1
+  - sympy=1.14.0
+  - matscipy=1.2.0
+  - questionary=2.1.0
+  - rich=14.3.3
+  - tqdm=4.70.1
+  - requests=2.34.2
+  - pyyaml=6.0.3
+  # notebook stack
+  - jupyterlab=4.6.1
+  - notebook=7.6.0
+  - ipykernel=7.3.0
+  - papermill=2.6.0
+  - pip=25.2
+  - pip:
+      # not packaged on conda-forge; --no-deps avoids pulling tensorflow[and-cuda]
+      # since a CPU-only TensorFlow is already installed above
+      - --no-deps
+      - tensorpotential==0.6.1

@@ -1,0 +1,46 @@
+name: Test notebooks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Weekly, to catch upstream (conda-forge / GRACE / lammpsparser / pylammpsmpi) changes
+    # that break the example even without any commit here.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  papermill:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        notebook:
+          - 01_lammps_grace_with_lammpsparser.ipynb
+          - 02_lammps_grace_with_pylammpsmpi.ipynb
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up the conda environment
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          environment-file: environment.yml
+          activate-environment: lammps-grace-example
+          miniforge-version: latest
+
+      - name: Register the environment's Jupyter kernel
+        shell: bash -el {0}
+        run: python -m ipykernel install --user --name python3 --display-name python3
+
+      - name: Execute ${{ matrix.notebook }} with papermill
+        shell: bash -el {0}
+        run: |
+          papermill "${{ matrix.notebook }}" "executed-${{ matrix.notebook }}" --kernel python3
+
+      - name: Upload executed notebook
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: executed-${{ matrix.notebook }}
+          path: executed-${{ matrix.notebook }}
