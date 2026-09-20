@@ -17,9 +17,12 @@ dependencies:
   - pylammpsmpi=0.5.1
   - mpi4py=4.1.2
   - executorlib=1.10.3
-  # GRACE foundation-model runtime (CPU-only TensorFlow, no CUDA extras)
+  # GRACE foundation-model runtime (CPU-only TensorFlow, no CUDA extras).
+  # grace-tensorpotential is the conda-forge packaging of the `tensorpotential` PyPI
+  # package; it provides the `grace_models`/`gracemaker` CLIs used below.
   - tensorflow-cpu=2.19.1
   - tf-keras=2.19.0
+  - grace-tensorpotential=0.6.1
   - scikit-learn=1.9.1
   - sympy=1.14.0
   - matscipy=1.2.0
@@ -33,9 +36,3 @@ dependencies:
   - notebook=7.6.0
   - ipykernel=7.3.0
   - papermill=2.6.0
-  - pip=25.2
-  - pip:
-      # not packaged on conda-forge; --no-deps avoids pulling tensorflow[and-cuda]
-      # since a CPU-only TensorFlow is already installed above
-      - --no-deps
-      - tensorpotential==0.6.1
