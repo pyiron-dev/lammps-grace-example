@@ -4,7 +4,8 @@
 [![Test notebooks](https://github.com/pyiron-dev/lammps-grace-example/actions/workflows/test-notebooks.yml/badge.svg)](https://github.com/pyiron-dev/lammps-grace-example/actions/workflows/test-notebooks.yml)
 
 Two notebooks showing how to run the [GRACE](https://gracemaker.readthedocs.io/en/latest/gracemaker/tutorials/#132-lammps)
-universal machine-learning potentials in LAMMPS (`pair_style grace`, conda-forge `lammps=2025.07.22=*_5`):
+universal machine-learning potentials in LAMMPS (`pair_style grace/fs`, the native evaluator built into the
+conda-forge `lammps=2025.07.22=*_5` package):
 
 - [`01_lammps_grace_with_lammpsparser.ipynb`](01_lammps_grace_with_lammpsparser.ipynb) - via
   [`lammpsparser`](https://lammpsparser.readthedocs.io/en/latest/example.html) (file-based, `pyiron`-style interface).
